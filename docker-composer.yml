@@ -1,0 +1,17 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./booktracking   # Path to the frontend directory
+    ports:
+      - "3000:3000"         # Map host port to container port
+    depends_on:
+      - backend              # Ensure the backend service is started first
+
+  backend:
+    build:
+      context: ./booktracking/Backend   # Path to the backend directory
+    ports:
+      - "8000:8000"         # Map host port to container port
+  environment:
+  - DATABASE_URL=mysql://root:Never$give$up999@localhost/BookApp # Set your database URL here
