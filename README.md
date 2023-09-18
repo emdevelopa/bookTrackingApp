@@ -12,17 +12,17 @@ yarn dev
 pnpm dev
 ```
 
-## Starting Server(FastAPI)
-navigate to the Backend folder(cd Backend/app/) then run this 
-```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Starting Server(FastAPI)
+on your terminal navigate to the Backend folder in your app(cd Backend/app/) then run this 
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
