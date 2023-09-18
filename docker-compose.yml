@@ -12,7 +12,6 @@ services:
     build:
       context: ./booktracking/backend   # Path to the backend directory
     ports:
-      - "8000:8000"    
-      # Map host port to container port
-  environment:
-  - DATABASE_URL=mysql://root:Never$give$up999@localhost/BookApp # Set your database URL here
+      - "8000:8000"         # Map host port to container port
+    environment:
+      - DATABASE_URL=mysql://root:Never$give$up999@localhost/BookApp # Set your database URL here
