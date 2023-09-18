@@ -1,4 +1,3 @@
-import mysql.connector
 from models.book import Book
 
 # The BookRepository class provides methods to interact with a MySQL database for managing books.

@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from pydantic import BaseModel
 
 # The Book class represents a book object with attributes 'id', 'title', and 'state'.
 @dataclass
