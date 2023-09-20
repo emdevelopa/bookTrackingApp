@@ -1,3 +1,4 @@
+import sqlite3
 from models.book import Book
 
 # The BookRepository class provides methods to interact with a MySQL database for managing books.
@@ -20,7 +21,7 @@ class BookRepository:
         cursor = self.connection.cursor()
         
         # Insert a new book record into the 'books' table with an initial state of 'to-read'.
-        cursor.execute("INSERT INTO books (title, state) VALUES (%s, %s)", (title, 'to-read'))
+        cursor.execute("INSERT INTO books (title, state) VALUES (?, ?)", (title, 'to-read'))
         self.connection.commit()
         
         # Retrieve the ID of the newly inserted book and create a Book object.
@@ -32,7 +33,7 @@ class BookRepository:
         cursor = self.connection.cursor()
         
         # Update the 'state' of a book based on its ID in the 'books' table.
-        cursor.execute("UPDATE books SET state = %s WHERE id = %s", (new_state, book_id))
+        cursor.execute("UPDATE books SET state = ? WHERE id = ?", (new_state, book_id))
         self.connection.commit()
 
     # Method to delete a book from the database.
@@ -40,5 +41,5 @@ class BookRepository:
         cursor = self.connection.cursor()
         
         # Delete a book from the 'books' table based on its ID.
-        cursor.execute("DELETE FROM books WHERE id = %s", (book_id,))
+        cursor.execute("DELETE FROM books WHERE id = ?", (book_id,))
         self.connection.commit()

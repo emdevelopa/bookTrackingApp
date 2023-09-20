@@ -2,14 +2,14 @@ version: '3'
 services:
   frontend:
     build:
-      context: ./booktracking
+      context: .
       dockerfile: Dockerfile-frontend
     ports:
       - "3000:3000"
 
   backend:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile-backend
     ports:
       - "8000:8000"

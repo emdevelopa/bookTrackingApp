@@ -10,30 +10,38 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from models.book import Book
 from repositories.book_repository import BookRepository
-import mysql.connector
+
+import sqlite3
 
 # Create a FastAPI application instance
 app = FastAPI()
 
-# Define the MySQL database configuration
-mysql_config = {
-    'user': 'root',
-    'password': 'Never$give$up999',
-    'host': 'localhost',  # Typically 'localhost' for local development
-    'database': 'BookApp',
-    'raise_on_warnings': True,
-}
+# db_connection = None
+# cursor = None
 
-try:
-    # Establish a MySQL database connection
-    db_connection = mysql.connector.connect(**mysql_config)
-    print("Database connection established successfully.")
-except mysql.connector.Error as err:
-    print(f"Error: {err}")
-    raise SystemExit
+db_connection = sqlite3.connect('database.db')
+cursor = db_connection.cursor()
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS books (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        state TEXT NOT NULL
+    )
+''')
 
-# Create a BookRepository instance to interact with the database
-book_repository = BookRepository(db_connection)
+# Check if the database connection and cursor are valid
+if db_connection is not None and cursor is not None:
+    print("Connected to the database")
+
+    # Create a BookRepository instance to interact with the database
+    book_repository = BookRepository(db_connection)
+
+else:
+    print('Failed to connect to the database')
+
+# book_repository = BookRepository(db_connection)
+
+
 
 # Define the allowed origins for CORS
 origins = [
@@ -45,7 +53,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],  # You can restrict this to specific HTTP methods (e.g., ["GET", "POST"])
+    allow_methods=["*"],  # You can rcursor.execute("SELECT id, title, state FROM books")estrict this to specific HTTP methods (e.g., ["GET", "POST"])
     allow_headers=["*"],  # You can restrict this to specific HTTP headers if needed
 )
 

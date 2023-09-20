@@ -2,16 +2,16 @@
 FROM python:3.10.2
 
 # Set the working directory in the container to /app
-WORKDIR . .
+WORKDIR . /app
 
 # Copy the Dockerfile and requirements.txt into the container
-COPY ./requirements.txt .
+COPY requirements.txt .
 
 # Install project dependencies
 RUN pip install -r requirements.txt
 
 # Copy the entire backend source code to the container
-COPY . .
+COPY backend/ .
 
 # Expose port 8000 (the default FastAPI port)
 EXPOSE 8000
