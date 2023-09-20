@@ -21,7 +21,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 ## Starting Server(FastAPI)
 on your terminal navigate to the Backend folder in your app(cd Backend/app/) then run this 
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 ## Learn More
 
