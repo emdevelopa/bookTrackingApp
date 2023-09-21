@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import BookList from './components/BookList';
-import { getBooks, addBook, moveBook, deleteBook } from './utils/api';
+import { getBooks, addBook, moveBook, deleteBook,updateBookTitle } from './utils/api';
 import { Book } from './models/book';
 
 // The Home component represents the main page of the book management application.
@@ -70,6 +70,20 @@ export default function Home() {
     }
   };
 
+
+  const handleUpdateTitle = async (bookId: number, newTitle: string) => {
+    try {
+      // Update the book title in the backend and then fetch books again to update the state.
+      await updateBookTitle(bookId, newTitle); // Implement updateBookTitle according to your API.
+      const data = await getBooks();
+      setToRead(data.toRead);
+      setInProgress(data.inProgress);
+      setCompleted(data.completed);
+    } catch (error) {
+      console.error('Error updating book title:', error);
+    }
+  };
+
   // Render the main content of the Home component.
   return (
     <div className="flex">
@@ -77,7 +91,7 @@ export default function Home() {
       <div className="w-1/3 p-4">
         <h2 className="text-xl font-semibold mb-2">To Read</h2>
         <div className="bg-white rounded-lg border p-4">
-          <BookList books={toRead} onMove={handleMoveBook} onDelete={handleDeleteBook} />
+          <BookList books={toRead} onMove={handleMoveBook} onDelete={handleDeleteBook} onUpdateTitle={handleUpdateTitle} />
         </div>
       </div>
 
@@ -85,7 +99,7 @@ export default function Home() {
       <div className="w-1/3 p-4">
         <h2 className="text-xl font-semibold mb-2">In Progress</h2>
         <div className="bg-white rounded-lg border p-4">
-          <BookList books={inProgress} onMove={handleMoveBook} onDelete={handleDeleteBook} />
+          <BookList books={inProgress} onMove={handleMoveBook} onDelete={handleDeleteBook} onUpdateTitle={handleUpdateTitle} />
         </div>
       </div>
 
@@ -93,7 +107,7 @@ export default function Home() {
       <div className="w-1/3 p-4">
         <h2 className="text-xl font-semibold mb-2">Completed</h2>
         <div className="bg-white rounded-lg border p-4">
-          <BookList books={completed} onMove={handleMoveBook} onDelete={handleDeleteBook} />
+          <BookList books={completed} onMove={handleMoveBook} onDelete={handleDeleteBook} onUpdateTitle={handleUpdateTitle} />
         </div>
       </div>
 

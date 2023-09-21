@@ -5,7 +5,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from models.book import Book
@@ -16,8 +16,8 @@ import sqlite3
 # Create a FastAPI application instance
 app = FastAPI()
 
-# db_connection = None
-# cursor = None
+db_connection = None
+cursor = None
 
 db_connection = sqlite3.connect('database.db')
 cursor = db_connection.cursor()
@@ -91,6 +91,26 @@ async def update_book(book_id: int, request: Request):
 async def delete_book(book_id: int):
     book_repository.delete_book(book_id)
     return None
+
+# @app.put("/updateTitle")
+# async def update_book_title(title: str, id: int):
+#     print(title)
+    # try:
+    #     # Update the book title in the database
+    #     book_repository.update_book_title(id, title)
+    #     return JSONResponse(content={"message": "Book title updated successfully"})
+    # except Exception as e:
+    #     # Handle any exceptions or errors
+    #     return HTTPException(status_code=500, detail="Failed to update book title")
+@app.put("/updateTitle/title={title}&id={book_id}")
+async def update_book_title(book_id: int, title: str):
+    try:
+        # Update the book title in the database using the provided book_id
+        updated_book = book_repository.update_book_title(book_id, title)
+        return updated_book
+    except Exception as e:
+        # Handle any errors and return an appropriate response
+        return JSONResponse(content={"error": str(e)}, status_code=500)
 
 # Run the FastAPI application
 if __name__ == "__main__":

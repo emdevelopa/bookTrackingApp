@@ -73,3 +73,15 @@ export const deleteBook = async (bookId: number) => {
     throw error;
   }
 };
+
+export const updateBookTitle = async (bookId: number, newBookTitle: string) =>{
+  console.log(bookId);
+  
+  try {
+    const response = await axios.put(`${API_BASE_URL}/updateTitle/title=${newBookTitle}&id=${bookId}`);
+
+    return response.data;
+  } catch (error) {
+     throw error;
+  }
+}
