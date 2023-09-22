@@ -53,7 +53,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],  # You can rcursor.execute("SELECT id, title, state FROM books")estrict this to specific HTTP methods (e.g., ["GET", "POST"])
+    allow_methods=["*"],  # You can restrict this to specific HTTP methods (e.g., ["GET", "POST"])
     allow_headers=["*"],  # You can restrict this to specific HTTP headers if needed
 )
 
